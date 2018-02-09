@@ -1,6 +1,6 @@
 module.exports = {
     tasks: [{
         path: 'E:\\gvp-compare\\clay',
-        time: '* */2 * * 1-5'
+        time: '5 */2 * * 1-5'
     }]
 };

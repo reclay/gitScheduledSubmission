@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
 let getTime = () => {
-    return moment().format('YYYY-MM-DD HH:mm:ss')
+    return moment().format('YYYY-MM-DD HH:mm:ss');
 };
 let writeLog = (msg) => {
     let _msg = {};
