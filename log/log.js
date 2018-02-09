@@ -2,6 +2,7 @@ const log = require('./log.json');
 const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
+const {sendMail} = require('../src/mail');
 let getTime = () => {
     return moment().format('YYYY-MM-DD HH:mm:ss');
 };
@@ -23,7 +24,19 @@ let writeLog = (msg) => {
     let logPath = path.join(__dirname, './log.json');
     fs.writeFileSync(logPath, JSON.stringify(_msg));
 };
+let handleErr = (err) => {
+    writeLog({
+        lastErr: {
+            msg: err
+        }
+    });
+    sendMail({
+        msg: err,
+        type: 'error'
+    });
+};
 
 module.exports = {
-    writeLog
+    writeLog,
+    handleErr
 };

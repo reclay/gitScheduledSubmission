@@ -1,15 +1,9 @@
-const writeLog = require('../log/log').writeLog;
+const {writeLog, handleErr} = require('../log/log');
 const {getCommitMsg, gitCommit} = require('./git');
+const {sendMail} = require('./mail');
 const path = require('path');
 const shell = require('shelljs');
 
-let handleErr = (err) => {
-    writeLog({
-        lastErr: {
-            msg: err
-        }
-    });
-};
 let processGit = (gitRep) => {
     console.log('get msg...');
     getCommitMsg(gitRep).then((msg) => {
@@ -38,6 +32,10 @@ let processGit = (gitRep) => {
                             oid,
                             msg
                         }});
+                        sendMail({
+                            msg: msg,
+                            type: 'success'
+                        })
                         console.log('success');
                     });
                 });
